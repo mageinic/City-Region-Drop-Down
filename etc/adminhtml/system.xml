@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_CityRegionPostcode
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mageinic_cityregionpostcode" translate="label" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <tab>mageinic</tab>
+            <label><![CDATA[Region &amp; City &amp; Postcode Manager]]></label>
+            <resource>MageINIC_CityRegionPostcode::config</resource>
+            <group id="general" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="country" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Country Settings</label>
+                <field id="searchable" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Searchable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[If selected to <strong>Yes</strong>,
+                        the country dropdown comes with a search option in the storefront.]]></comment>
+                </field>
+            </group>
+
+            <group id="region" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Region Settings</label>
+                <field id="searchable" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Searchable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[If selected to <strong>Yes</strong>,
+                        the region dropdown comes with a search option in the storefront.]]></comment>
+                </field>
+            </group>
+
+            <group id="city" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>City Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select Value if you want enable on checkout page]]></comment>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Position</label>
+                    <comment>
+                        <![CDATA[Field position in the checkout address.
+                        Leave empty if position to be determined by the system.]]></comment>
+                </field>
+                <field id="searchable" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Searchable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[If selected to <strong>Yes</strong>,
+                        the city dropdown comes with a search option in the storefront.]]></comment>
+                </field>
+            </group>
+            <group id="postcode" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>PostCode Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select Value if you want enable on checkout page]]></comment>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Position</label>
+                    <comment>
+                        <![CDATA[Field position in the checkout address.
+                        Leave empty if position to be determined by the system.]]></comment>
+                </field>
+                <field id="searchable" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Searchable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[If selected to <strong>Yes</strong>,
+                        the postCode dropdown comes with a search option in the storefront.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

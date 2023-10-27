@@ -1,0 +1,61 @@
+{
+    "quote_address": {
+        "column": {
+            "city_id": true,
+            "postcode_id": true
+        }
+    },
+    "sales_order_address": {
+        "column": {
+            "city_id": true,
+            "postcode_id": true
+        }
+    },
+    "directory_country_region_city": {
+        "column": {
+            "city_id": true,
+            "country_id": true,
+            "region_id": true,
+            "code": true,
+            "default_name": true
+        },
+        "index": {
+            "DIRECTORY_COUNTRY_REGION_CITY_COUNTRY_ID": true,
+            "DIRECTORY_COUNTRY_REGION_CITY_REGION_ID": true,
+            "DIRECTORY_COUNTRY_REGION_CITY_CODE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "directory_country_region_city_name": {
+        "column": {
+            "city_id": true,
+            "name": true,
+            "locale": true
+        },
+        "index": {
+            "DIRECTORY_COUNTRY_REGION_CITY_NAME_CITY_ID": true,
+            "DIRECTORY_COUNTRY_REGION_CITY_NAME_NAME": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_4437144965A71845F344D1DF887724B8": true
+        }
+    },
+    "directory_country_region_city_postcode": {
+        "column": {
+            "postcode_id": true,
+            "country_id": true,
+            "region_id": true,
+            "city_id": true,
+            "postcode": true
+        },
+        "index": {
+            "DIRECTORY_COUNTRY_REGION_CITY_POSTCODE_POSTCODE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

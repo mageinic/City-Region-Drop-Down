@@ -1,0 +1,95 @@
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_CityRegionPostcode
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+
+<?php
+
+use MageINIC\CityRegionPostcode\Block\Customer\Address\Edit\Js;
+use MageINIC\CityRegionPostcode\ViewModel\CityViewModel;
+use MageINIC\CityRegionPostcode\ViewModel\PostCodeViewModel;
+use Magento\Framework\Escaper;
+
+/** @var CityViewModel $cityViewModel */
+/** @var PostCodeViewModel $postCodeViewModel */
+/** @var Js $block */
+/** @var Escaper $escaper */
+
+$cityViewModel = $block->getCityViewModel();
+$postCodeViewModel = $block->getPostCodeViewModel();
+?>
+
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            var cityIdHtml = '<select id="city_id" name="city_id" title="<?= $escaper->escapeHtmlAttr(__('City')) ?>" class="validate-select" style="display: none;"><option value=""><?= $block->escapeHtml(__('Please select a city.')) ?></option></select>';
+            var postcodeIdHtml = '<select id="postcode_id" name="postcode_id" title="<?= $escaper->escapeHtmlAttr(__('postcode')) ?>" class="validate-select" style="display: none;"><option value=""><?= $block->escapeHtml(__('Please select a postcode.')) ?></option></select>';
+            $('#city').before(cityIdHtml);
+            $('#zip').before(postcodeIdHtml);
+        });
+    });
+</script>
+<?php if ($cityViewModel->isActive()): ?>
+    <script type="text/x-magento-init">
+    {
+        "#region_id": {
+            "cityUpdater": {
+                "isActive": <?= $cityViewModel->isActive() ? 'true' : 'false' ?>,
+                "isSearchable": <?= (int)$cityViewModel->isSearchable() ?>,
+                "countryListId": "#country",
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "cityListId": "#city_id",
+                "cityInputId": "#city",
+                "defaultCityId": "<?= (int)$block->getCityId() ?>",
+                "cityJson" : <?= $cityViewModel->getCitySerializeValues() ?>
+            }
+        }
+    }
+
+    </script>
+<?php endif; ?>
+<?php if ($postCodeViewModel->isActive()): ?>
+    <script type="text/x-magento-init">
+    {
+         "#city_id": {
+            "postcodeUpdater": {
+                "isActive": <?= $postCodeViewModel->isActive() ? 'true' : 'false' ?>,
+                "isSearchable": <?= (int)$cityViewModel->isSearchable() ?>,
+                "countryListId": "#country",
+                "countryId": "#region",
+                "regionInputId": "#region_id",
+                "cityListId": "#city_id",
+                "cityInputId": "#city",
+                "postcodeListId": "#postcode_id",
+                "postcodeInputId": "#zip",
+                "defaultPostcodeId": "<?= (int)$block->getPostcodeId(); ?>",
+                "postcodeJson" : <?= $postCodeViewModel->getPostCodeSerializeValues(); ?>
+            }
+        }
+    }
+
+    </script>
+<?php endif; ?>
+

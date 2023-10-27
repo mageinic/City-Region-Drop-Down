@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "212c35ff-8f4b-48ad-a6cd-17148ac8ba4a",
+		"name": "CityRegionPostcode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8434423"
+	},
+	"item": [
+		{
+			"name": "Postcode",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "e1te1ck38bjijibf5tiaq016ypl21kgv",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rest/V1/postcode/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"postcode",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "City",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rest/ar/V1/city/580",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rest",
+						"ar",
+						"V1",
+						"city",
+						"580"
+					],
+					"query": [
+						{
+							"key": "store_id",
+							"value": "3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

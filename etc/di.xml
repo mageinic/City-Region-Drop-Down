@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_CityRegionPostcode
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Api -->
+    <preference for="MageINIC\CityRegionPostcode\Api\Data\CityInterface"
+                type="MageINIC\CityRegionPostcode\Model\City"/>
+    <preference for="MageINIC\CityRegionPostcode\Api\CityRepositoryInterface"
+                type="MageINIC\CityRegionPostcode\Model\CityRepository"/>
+    <preference for="MageINIC\CityRegionPostcode\Api\Data\CitySearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="MageINIC\CityRegionPostcode\Api\Data\PostcodeInterface"
+                type="MageINIC\CityRegionPostcode\Model\Postcode"/>
+    <preference for="MageINIC\CityRegionPostcode\Api\PostcodeRepositoryInterface"
+                type="MageINIC\CityRegionPostcode\Model\PostcodeRepository"/>
+    <preference for="MageINIC\CityRegionPostcode\Api\Data\PostcodeSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="cityregionpostcode_region_listing_data_source" xsi:type="string">
+                    MageINIC\CityRegionPostcode\Model\ResourceModel\Region\Grid\Collection
+                </item>
+                <item name="cityregionpostcode_city_listing_data_source" xsi:type="string">
+                    MageINIC\CityRegionPostcode\Model\ResourceModel\City\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MageINIC\CityRegionPostcode\Model\ResourceModel\Region\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">directory_country_region</argument>
+            <argument name="eventPrefix" xsi:type="string">directory_country_region_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">directory_country_region_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Directory\Model\ResourceModel\Region</argument>
+        </arguments>
+    </type>
+    <type name="MageINIC\CityRegionPostcode\Model\ResourceModel\City\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">directory_country_region_city</argument>
+            <argument name="eventPrefix" xsi:type="string">directory_country_region_city_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">directory_country_region_city_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MageINIC\CityRegionPostcode\Model\ResourceModel\City
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- custom field injection in checkout -->
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="MageINIC_CityRegionPostcode::block_checkout_layoutProcessor" sortOrder="1"
+                type="MageINIC\CityRegionPostcode\Plugin\Block\Checkout\LayoutProcessor"/>
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\DirectoryDataProcessor">
+        <plugin name="MageINIC_CityRegionPostcode::block_checkout_directoryDataProcessor" sortOrder="1"
+                type="MageINIC\CityRegionPostcode\Plugin\Block\Checkout\DirectoryDataProcessor"/>
+    </type>
+
+    <!-- convert extension attribute to object level -->
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="MageINIC_CityRegionPostcode::model_checkout_shippingInformationManagement"
+                sortOrder="1"
+                type="MageINIC\CityRegionPostcode\Plugin\Model\Checkout\ShippingInformationManagement"/>
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="MageINIC_CityRegionPostcode::model_checkout_paymentInformationManagement"
+                sortOrder="1"
+                type="MageINIC\CityRegionPostcode\Plugin\Model\Checkout\PaymentInformationManagement"/>
+    </type>
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="MageINIC_CityRegionPostcode::magento_quote_model_guestPaymentInformationManagement"
+                sortOrder="1"
+                type="MageINIC\CityRegionPostcode\Plugin\Model\Checkout\GuestPaymentInformationManagement"/>
+    </type>
+
+    <!-- convert quote to customer address -->
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="MageINIC_CityRegionPostcode::model_quote_address"
+                type="MageINIC\CityRegionPostcode\Plugin\Model\Quote\Address"/>
+    </type>
+
+    <!-- convert quote to order address -->
+    <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
+        <plugin name="MageINIC_CityRegionPostcode::model_quote_address_toOrderAddress"
+                type="MageINIC\CityRegionPostcode\Plugin\Model\Quote\Address\ToOrderAddress"/>
+    </type>
+
+    <!-- set city name -->
+    <type name="Magento\Customer\Model\Address">
+        <plugin name="MageINIC_CityRegionPostcode::model_customer_address_setCityAndPostcode"
+                type="MageINIC\CityRegionPostcode\Plugin\Model\Customer\Address\SetCityAndPostcode"/>
+    </type>
+
+    <!-- inject city id during guest to customer conversion -->
+    <type name="Magento\Customer\Model\Delegation\Storage">
+        <plugin name="MageINIC_CityRegionPostcode::model_customer_delegation_injectCityIdAndPostcode"
+                type="MageINIC\CityRegionPostcode\Plugin\Model\Customer\Delegation\InjectCityIdAndPostcode"/>
+    </type>
+
+    <virtualType name="MageINIC\CityRegionPostcode\Model\ResourceModel\Postcode\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">directory_country_region_city_postcode</argument>
+            <argument name="resourceModel" xsi:type="string">
+                MageINIC\CityRegionPostcode\Model\ResourceModel\Postcode
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="cityregionpostcode_postcode_listing_data_source" xsi:type="string">
+                    MageINIC\CityRegionPostcode\Model\ResourceModel\Postcode\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- WholeSale Start-->
+    <type name="Magento\Eav\Model\Validator\Attribute\Data">
+        <arguments>
+            <argument name="ignoredAttributesByTypesList" xsi:type="array">
+                <item name="customer_address" xsi:type="array">
+                    <item name="city_id" xsi:type="string">city_id</item>
+                    <item name="postcode_id" xsi:type="string">postcode_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>
