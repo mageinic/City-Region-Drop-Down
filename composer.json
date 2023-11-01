@@ -1,6 +1,6 @@
 {
     "name": "mageinic/cityregionpostcode",
-    "description": "City Region Postcode selected city and postcode improve customer user experience.",
+    "description": "CityRegionPostcode Extension by MageINIC, The City Region Drop-down extension simplifies region, city, and postcode management via an intuitive backend interface. It enhances the customer experience by providing convenient drop-down fields with search options for selecting cities and postcodes during the checkout process.",
     "require": {
         "php": "^8.0",
         "mageinic/core": ">=1.0.*",
@@ -11,7 +11,8 @@
     "type": "magento2-module",
     "version": "1.0.0",
     "license": [
-        "Commercial"
+        "OSL-3.0",
+        "AFL-3.0"
     ],
     "authors": [
         {
